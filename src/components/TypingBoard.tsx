@@ -1,23 +1,23 @@
 import { Component, createSignal, JSX } from 'solid-js';
 
 export const TypingBoard: Component = () => {
-  const [text, setText] = createSignal('');
+  const [inputText, setInputText] = createSignal('');
 
   const handleOnKeyDown: JSX.EventHandlerUnion<
     HTMLInputElement,
     KeyboardEvent
   > = event => {
-    event.key === ' ' && setText('');
+    event.key === ' ' && setInputText('');
   };
 
   return (
     <>
       <input
-        value={text()}
-        onInput={e => setText(e.currentTarget.value)}
+        value={inputText()}
+        onInput={e => setInputText(e.currentTarget.value)}
         onKeyDown={handleOnKeyDown}
       />
-      <p>{text()}</p>
+      <p>{inputText()}</p>
     </>
   );
 };
