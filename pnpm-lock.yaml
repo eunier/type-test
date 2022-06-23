@@ -1,12 +1,14 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@faker-js/faker': ^7.3.0
   solid-js: ^1.4.2
   typescript: ^4.6.4
   vite: ^2.9.9
   vite-plugin-solid: ^2.2.6
 
 dependencies:
+  '@faker-js/faker': 7.3.0
   solid-js: 1.4.2
 
 devDependencies:
@@ -339,6 +341,11 @@ packages:
       '@babel/helper-validator-identifier': 7.16.7
       to-fast-properties: 2.0.0
     dev: true
+
+  /@faker-js/faker/7.3.0:
+    resolution: {integrity: sha512-1W0PZezq2rxlAssoWemi9gFRD8IQxvf0FPL5Km3TOmGHFG7ib0TbFBJ0yC7D/1NsxunjNTK6WjUXV8ao/mKZ5w==}
+    engines: {node: '>=14.0.0', npm: '>=6.0.0'}
+    dev: false
 
   /@jridgewell/resolve-uri/3.0.5:
     resolution: {integrity: sha512-VPeQ7+wH0itvQxnG+lIzWgkysKIr3L9sslimFW55rHMdGu/qCQ5z5h9zq4gI8uBtqkpHhsF4Z/OwExufUCThew==}
