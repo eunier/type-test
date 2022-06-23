@@ -19,7 +19,10 @@ const App: Component = () => {
   return (
     <div class={styles.App}>
       <TextDisplay text={text()} />
-      <TypingBoard targetWord={targetWord()} />
+      <TypingBoard
+        targetWord={targetWord()}
+        setTargetWordIndex={setTargetWordIndex}
+      />
     </div>
   );
 };
