@@ -6,13 +6,18 @@ export const TypingBoard: Component<{
 }> = props => {
   const [inputText, setInputText] = createSignal('');
   const inputValue = () => inputText().trim();
+  const [charsCount, setCharsCount] = createSignal(0);
 
   const handleOnKeyDown: JSX.EventHandlerUnion<
     HTMLInputElement,
     KeyboardEvent
   > = e => {
     if (e.key === ' ') {
-      if (inputValue() !== '') props.setTargetWordIndex(prev => prev + 1);
+      if (inputValue() !== '') {
+        setCharsCount(charsCount() + props.targetWord.length);
+        props.setTargetWordIndex(prev => prev + 1);
+      }
+
       setInputText('');
     }
   };
@@ -25,7 +30,8 @@ export const TypingBoard: Component<{
         onInput={e => setInputText(e.currentTarget.value)}
         onKeyDown={handleOnKeyDown}
       />
-      <p>{inputText()}</p>
+      <p>{`->${inputValue()}<-`}</p>
+      <p>{charsCount()}</p>
     </>
   );
 };
