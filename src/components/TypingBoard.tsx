@@ -6,9 +6,7 @@ export const TypingBoard: Component = () => {
   const handleOnKeyDown: JSX.EventHandlerUnion<
     HTMLInputElement,
     KeyboardEvent
-  > = event => {
-    event.key === ' ' && setInputText('');
-  };
+  > = event => event.key === ' ' && setInputText('');
 
   return (
     <>
