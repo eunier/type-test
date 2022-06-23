@@ -1,5 +1,12 @@
-import { Component } from 'solid-js';
+import { Component, createSignal } from 'solid-js';
 
 export const TypingBoard: Component = () => {
-  return <input type="text">type here</input>;
+  const [text, setText] = createSignal('');
+
+  return (
+    <>
+      <input type="text" onInput={e => setText(e.currentTarget.value)} />
+      <p>{text()}</p>
+    </>
+  );
 };
