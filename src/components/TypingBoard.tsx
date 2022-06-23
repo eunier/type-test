@@ -18,6 +18,8 @@ export const TypingBoard: Component<{
   const [intervalNum, setIntervalNum] = createSignal(0);
   const inputValue = () => inputText().trim();
   const elapsedMin = () => elapsedMs() / 1000 / 60;
+  const wordsCount = () => charsCount() / 5;
+  const grossWpm = () => Math.floor(wordsCount() / elapsedMin() || 0);
 
   const elapsedMinString = () => {
     const [whole, decimal] = elapsedMin().toString().split('.');
@@ -75,7 +77,9 @@ export const TypingBoard: Component<{
       <p>
         elapsedMinString: <code>{elapsedMinString()}</code>
       </p>
-      {/* <p>typedWords: {typedWords()}</p> */}
+
+      <p>wordsCount: {wordsCount()}</p>
+      <p>grossWpm: {grossWpm()}</p>
     </>
   );
 };
