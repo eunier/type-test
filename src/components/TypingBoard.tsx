@@ -4,9 +4,11 @@ export const TypingBoard: Component<{
   targetWord: string;
   setTargetWordIndex: Setter<number>;
 }> = props => {
+  // TODO pass whole text
   const [inputText, setInputText] = createSignal('');
   const inputValue = () => inputText().trim();
   const [charsCount, setCharsCount] = createSignal(0);
+  const typedWords = () => charsCount() / 5;
 
   const handleOnKeyDown: JSX.EventHandlerUnion<
     HTMLInputElement,
@@ -31,7 +33,8 @@ export const TypingBoard: Component<{
         onKeyDown={handleOnKeyDown}
       />
       <p>{`->${inputValue()}<-`}</p>
-      <p>{charsCount()}</p>
+      <p>charsCount: {charsCount()}</p>
+      <p>typedWords: {typedWords()}</p>
     </>
   );
 };
