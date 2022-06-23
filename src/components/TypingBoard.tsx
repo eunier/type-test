@@ -4,7 +4,6 @@ export const TypingBoard: Component<{
   targetWord: string;
   setTargetWordIndex: Setter<number>;
 }> = props => {
-  // TODO pass whole text
   const [inputText, setInputText] = createSignal('');
   const inputValue = () => inputText().trim();
   const [charsCount, setCharsCount] = createSignal(0);
@@ -16,7 +15,7 @@ export const TypingBoard: Component<{
   > = e => {
     if (e.key === ' ') {
       if (inputValue() !== '') {
-        setCharsCount(charsCount() + props.targetWord.length);
+        setCharsCount(charsCount() + inputValue().length + 1);
         props.setTargetWordIndex(prev => prev + 1);
       }
 
