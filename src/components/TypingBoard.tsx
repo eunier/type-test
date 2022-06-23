@@ -7,12 +7,23 @@ export const TypingBoard: Component<{
   const [inputText, setInputText] = createSignal('');
   const inputValue = () => inputText().trim();
   const [charsCount, setCharsCount] = createSignal(0);
-  const typedWords = () => charsCount() / 5;
+  const [dateStart, setDateStart] = createSignal<Date>();
+  const [timeElapsed, setTimeElapsed] = createSignal(0);
+
+  setInterval(() => {
+    if (dateStart()) {
+      const date = new Date();
+      const timeElapsedVal = date.getTime() - (dateStart() ?? date).getTime();
+      setTimeElapsed(timeElapsedVal);
+    }
+  }, 1000);
 
   const handleOnKeyDown: JSX.EventHandlerUnion<
     HTMLInputElement,
     KeyboardEvent
   > = e => {
+    if (!dateStart()) setDateStart(new Date());
+
     if (e.key === ' ') {
       if (inputValue() !== '') {
         setCharsCount(charsCount() + inputValue().length + 1);
@@ -33,7 +44,9 @@ export const TypingBoard: Component<{
       />
       <p>{`->${inputValue()}<-`}</p>
       <p>charsCount: {charsCount()}</p>
-      <p>typedWords: {typedWords()}</p>
+      <p>dateStart: {dateStart()?.toDateString()}</p>
+      <p>timeElapsed: {timeElapsed()}</p>
+      {/* <p>typedWords: {typedWords()}</p> */}
     </>
   );
 };
