@@ -1,4 +1,11 @@
-import { Component, createSignal, JSX, Setter } from 'solid-js';
+import {
+  Component,
+  createSignal,
+  JSX,
+  onCleanup,
+  onMount,
+  Setter,
+} from 'solid-js';
 
 export const TypingBoard: Component<{
   targetWord: string;
@@ -9,14 +16,22 @@ export const TypingBoard: Component<{
   const [charsCount, setCharsCount] = createSignal(0);
   const [dateStart, setDateStart] = createSignal<Date>();
   const [timeElapsed, setTimeElapsed] = createSignal(0);
+  const [intervalNum, setIntervalNum] = createSignal(0);
 
-  setInterval(() => {
-    if (dateStart()) {
-      const date = new Date();
-      const timeElapsedVal = date.getTime() - (dateStart() ?? date).getTime();
-      setTimeElapsed(timeElapsedVal);
-    }
-  }, 1000);
+  onMount(() =>
+    setIntervalNum(
+      setInterval(() => {
+        if (dateStart()) {
+          const date = new Date();
+          const timeElapsedVal =
+            date.getTime() - (dateStart() ?? date).getTime();
+          setTimeElapsed(timeElapsedVal);
+        }
+      })
+    )
+  );
+
+  onCleanup(() => clearInterval(intervalNum()));
 
   const handleOnKeyDown: JSX.EventHandlerUnion<
     HTMLInputElement,
@@ -45,7 +60,7 @@ export const TypingBoard: Component<{
       <p>{`->${inputValue()}<-`}</p>
       <p>charsCount: {charsCount()}</p>
       <p>dateStart: {dateStart()?.toDateString()}</p>
-      <p>timeElapsed: {timeElapsed()}</p>
+      <code>timeElapsed: {timeElapsed()}</code>
       {/* <p>typedWords: {typedWords()}</p> */}
     </>
   );
