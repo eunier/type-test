@@ -9,15 +9,17 @@ const App: Component = () => {
   const [words] = createSignal(
     Array(50)
       .fill(null)
-      .map(() => faker.random.word())
+      .map(() => faker.random.word().toLowerCase())
   );
 
-  const text = () => words().join(' ').toLowerCase();
+  const [targetWordIndex, setTargetWordIndex] = createSignal(0);
+  const targetWord = () => words()[targetWordIndex()];
+  const text = () => words().join(' ');
 
   return (
     <div class={styles.App}>
       <TextDisplay text={text()} />
-      <TypingBoard />
+      <TypingBoard targetWord={targetWord()} />
     </div>
   );
 };

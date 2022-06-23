@@ -1,6 +1,6 @@
 import { Component, createSignal, JSX } from 'solid-js';
 
-export const TypingBoard: Component = () => {
+export const TypingBoard: Component<{ targetWord: string }> = props => {
   const [inputText, setInputText] = createSignal('');
 
   const handleOnKeyDown: JSX.EventHandlerUnion<
@@ -10,6 +10,7 @@ export const TypingBoard: Component = () => {
 
   return (
     <>
+      <p>{props.targetWord}</p>
       <input
         value={inputText()}
         onInput={e => setInputText(e.currentTarget.value)}
