@@ -2,7 +2,13 @@ import { faker } from '@faker-js/faker';
 import { Component, createSignal } from 'solid-js';
 
 export const TextDisplay: Component = () => {
-  const [text] = createSignal(faker.random.words(50).toLowerCase());
+  const [words] = createSignal(
+    Array(50)
+      .fill(null)
+      .map(() => faker.random.word())
+  );
 
-  return <p>{text}</p>;
+  const text = () => words().join(' ').toLowerCase();
+
+  return <p>{text()}</p>;
 };

@@ -5,7 +5,7 @@ export const TypingBoard: Component = () => {
 
   return (
     <>
-      <input type="text" onInput={e => setText(e.currentTarget.value)} />
+      <input onInput={e => setText(e.currentTarget.value)} />
       <p>{text()}</p>
     </>
   );
