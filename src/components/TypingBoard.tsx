@@ -12,11 +12,18 @@ export const TypingBoard: Component<{
   setTargetWordIndex: Setter<number>;
 }> = props => {
   const [inputText, setInputText] = createSignal('');
-  const inputValue = () => inputText().trim();
   const [charsCount, setCharsCount] = createSignal(0);
   const [dateStart, setDateStart] = createSignal<Date>();
-  const [timeElapsed, setTimeElapsed] = createSignal(0);
+  const [elapsedMs, setElapsedMs] = createSignal(0);
   const [intervalNum, setIntervalNum] = createSignal(0);
+  const inputValue = () => inputText().trim();
+  const elapsedMin = () => elapsedMs() / 1000 / 60;
+
+  const elapsedMinString = () => {
+    const [whole, decimal] = elapsedMin().toString().split('.');
+    const elapsedMinStringVal = `${whole}.${(decimal ?? '0').slice(0, 1)}`;
+    return elapsedMinStringVal;
+  };
 
   onMount(() =>
     setIntervalNum(
@@ -25,7 +32,7 @@ export const TypingBoard: Component<{
           const date = new Date();
           const timeElapsedVal =
             date.getTime() - (dateStart() ?? date).getTime();
-          setTimeElapsed(timeElapsedVal);
+          setElapsedMs(timeElapsedVal);
         }
       })
     )
@@ -60,7 +67,14 @@ export const TypingBoard: Component<{
       <p>{`->${inputValue()}<-`}</p>
       <p>charsCount: {charsCount()}</p>
       <p>dateStart: {dateStart()?.toDateString()}</p>
-      <code>timeElapsed: {timeElapsed()}</code>
+
+      <p>
+        elapsedMs: <code>{elapsedMs()}</code>
+      </p>
+
+      <p>
+        elapsedMinString: <code>{elapsedMinString()}</code>
+      </p>
       {/* <p>typedWords: {typedWords()}</p> */}
     </>
   );
