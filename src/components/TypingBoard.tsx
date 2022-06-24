@@ -21,6 +21,7 @@ export const TypingBoard: Component<{
   const elapsedMin = () => elapsedMs() / 1000 / 60;
   const wordsCount = () => charsCount() / 5;
   const grossWpm = () => Math.floor(wordsCount() / elapsedMin() || 0);
+  const netWpm = () => (wordsCount() - errorsCount()) / elapsedMin() || 0;
 
   const elapsedMinString = () => {
     const [whole, decimal] = elapsedMin().toString().split('.');
@@ -96,6 +97,7 @@ export const TypingBoard: Component<{
       <p>wordsCount: {wordsCount()}</p>
       <p>grossWpm: {grossWpm()}</p>
       <p>errorsCount: {errorsCount()}</p>
+      <p>netWpn: {netWpm()}</p>
     </>
   );
 };
