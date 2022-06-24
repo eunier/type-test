@@ -16,6 +16,7 @@ export const TypingBoard: Component<{
   const [dateStart, setDateStart] = createSignal<Date>();
   const [elapsedMs, setElapsedMs] = createSignal(0);
   const [intervalNum, setIntervalNum] = createSignal(0);
+  const [errorsCount, setErrorsCount] = createSignal(0);
   const inputValue = () => inputText().trim();
   const elapsedMin = () => elapsedMs() / 1000 / 60;
   const wordsCount = () => charsCount() / 5;
@@ -50,6 +51,20 @@ export const TypingBoard: Component<{
 
     if (e.key === ' ') {
       if (inputValue() !== '') {
+        if (inputValue() !== props.targetWord) {
+          const lookUp = {
+            [props.targetWord.length]: () => props.targetWord,
+            [inputValue().length]: () => inputValue(),
+          };
+
+          const key = Math.max(
+            ...Object.keys(lookUp).map(key => parseInt(key))
+          );
+
+          const tickErrorCount = lookUp[key]().length;
+          setErrorsCount(errorsCount() + tickErrorCount);
+        }
+
         setCharsCount(charsCount() + inputValue().length + 1);
         props.setTargetWordIndex(prev => prev + 1);
       }
@@ -80,6 +95,7 @@ export const TypingBoard: Component<{
 
       <p>wordsCount: {wordsCount()}</p>
       <p>grossWpm: {grossWpm()}</p>
+      <p>errorsCount: {errorsCount()}</p>
     </>
   );
 };
