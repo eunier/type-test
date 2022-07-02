@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { pipe } from 'fp-ts/lib/function';
-import * as RNEA from 'fp-ts/lib/ReadonlyNonEmptyArray';
+import * as RNEA from 'fp-ts/ReadonlyNonEmptyArray';
+import { toLowerCase } from 'fp-ts/string';
 import { Component, createSignal } from 'solid-js';
 import styles from './App.module.css';
 import { TextDisplay } from './components/TextDisplay';
@@ -10,7 +11,8 @@ const App: Component = () => {
   const [words] = createSignal(
     pipe(
       RNEA.range(0, 49),
-      RNEA.map(i => faker.random.word())
+      RNEA.map(() => faker.random.word()),
+      RNEA.map(toLowerCase)
     )
   );
 
