@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { pipe } from 'fp-ts/function';
+import { flow, pipe } from 'fp-ts/function';
 import * as RNEA from 'fp-ts/ReadonlyNonEmptyArray';
 import * as S from 'fp-ts/string';
 import { Component, createSignal } from 'solid-js';
@@ -19,11 +19,10 @@ const App: Component = () => {
   const [targetWordIndex, setTargetWordIndex] = createSignal(0);
   const targetWord = () => words()[targetWordIndex()];
 
-  const text = () =>
-    pipe(
-      words(),
-      RNEA.reduce('', (b, a) => `${b} ${a}`)
-    );
+  const text = flow(
+    words,
+    RNEA.reduce('', (b, a) => `${b} ${a}`)
+  );
 
   return (
     <div class={styles.App}>
