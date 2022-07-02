@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { flow, pipe } from 'fp-ts/function';
+import * as IO from 'fp-ts/IO';
 import * as RNEA from 'fp-ts/ReadonlyNonEmptyArray';
 import * as S from 'fp-ts/string';
 import { Component, createSignal } from 'solid-js';
@@ -17,7 +18,7 @@ const App: Component = () => {
   );
 
   const [targetWordIndex, setTargetWordIndex] = createSignal(0);
-  const targetWord = () => words()[targetWordIndex()];
+  const targetWord = (): IO.IO<string> => () => words()[targetWordIndex()];
 
   const text = flow(
     words,

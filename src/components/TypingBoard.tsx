@@ -1,3 +1,4 @@
+import * as IO from 'fp-ts/IO';
 import {
   Component,
   createSignal,
@@ -8,7 +9,7 @@ import {
 } from 'solid-js';
 
 export const TypingBoard: Component<{
-  targetWord: string;
+  targetWord: IO.IO<string>;
   setTargetWordIndex: Setter<number>;
 }> = props => {
   const [inputText, setInputText] = createSignal('');
@@ -53,7 +54,7 @@ export const TypingBoard: Component<{
 
     if (e.key === ' ') {
       if (inputValue() !== '') {
-        if (inputValue() !== props.targetWord) {
+        if (inputValue() !== props.targetWord()) {
           const lookUp = {
             [props.targetWord.length]: () => props.targetWord,
             [inputValue().length]: () => inputValue(),
