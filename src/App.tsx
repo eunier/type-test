@@ -26,8 +26,19 @@ const App: Component = () => {
       O.map(idx => words()[idx])
     );
 
+  const targetWord2 = () => () =>
+    flow(
+      targetWordIndex,
+      O.map(idx => words()[idx])
+    );
+
   const text = flow(
     words,
+    RNEA.reduce('', (b, a) => `${b} ${a}`)
+  );
+
+  const text2 = pipe(
+    words(),
     RNEA.reduce('', (b, a) => `${b} ${a}`)
   );
 
