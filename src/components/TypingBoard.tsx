@@ -1,4 +1,6 @@
 import * as IO from 'fp-ts/IO';
+import { pipe } from 'fp-ts/lib/function';
+import * as O from 'fp-ts/Option';
 import {
   Component,
   createSignal,
@@ -10,7 +12,7 @@ import {
 
 export const TypingBoard: Component<{
   targetWord: IO.IO<string>;
-  setTargetWordIndex: Setter<number>;
+  setTargetWordIndex: Setter<O.Option<number>>;
 }> = props => {
   const [inputText, setInputText] = createSignal('');
   const [charsCount, setCharsCount] = createSignal(0);
@@ -69,7 +71,12 @@ export const TypingBoard: Component<{
         }
 
         setCharsCount(charsCount() + inputValue().length + 1);
-        props.setTargetWordIndex(prev => prev + 1);
+        props.setTargetWordIndex(prev =>
+          pipe(
+            prev,
+            O.map(p => p + 1)
+          )
+        );
       }
 
       setInputText('');
