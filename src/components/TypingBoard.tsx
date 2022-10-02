@@ -11,7 +11,7 @@ import {
 } from 'solid-js';
 
 export const TypingBoard: Component<{
-  targetWord: IO.IO<string>;
+  targetWord: IO.IO<O.Option<string>>;
   setTargetWordIndex: Setter<O.Option<number>>;
 }> = props => {
   const [inputText, setInputText] = createSignal('');

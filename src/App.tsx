@@ -19,7 +19,12 @@ const App: Component = () => {
   );
 
   const [targetWordIndex, setTargetWordIndex] = createSignal(O.some(0));
-  const targetWord = (): IO.IO<string> => () => pipe(words()[0]);
+
+  const targetWord = (): IO.IO<O.Option<string>> => () =>
+    pipe(
+      targetWordIndex(),
+      O.map(idx => words()[idx])
+    );
 
   const text = flow(
     words,
