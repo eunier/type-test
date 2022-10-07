@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { flow, pipe } from 'fp-ts/function';
 import * as IO from 'fp-ts/IO';
-import * as O from 'fp-ts/Option';
+import * as RA from 'fp-ts/ReadonlyArray';
 import * as RNEA from 'fp-ts/ReadonlyNonEmptyArray';
 import * as S from 'fp-ts/string';
 import { Component, createSignal } from 'solid-js';
@@ -11,40 +11,23 @@ import { TypingBoard } from './components/TypingBoard';
 
 const App: Component = () => {
   const [words] = createSignal(
-    pipe(
-      RNEA.range(0, 49),
-      RNEA.map(faker.random.word),
-      RNEA.map(S.toLowerCase)
-    )
+    pipe(RNEA.range(0, 49), RA.map(faker.random.word), RA.map(S.toLowerCase))
   );
 
-  const [targetWordIndex, setTargetWordIndex] = createSignal(O.some(0));
+  const [targetWordIndex, setTargetWordIndex] = createSignal(0);
 
-  const targetWord = (): IO.IO<O.Option<string>> => () =>
-    pipe(
-      targetWordIndex(),
-      O.map(idx => words()[idx])
-    );
-
-  const targetWord2 = () => () =>
-    flow(
-      targetWordIndex,
-      O.map(idx => words()[idx])
-    );
+  const targetWord = (): IO.IO<string> => () =>
+    pipe(targetWordIndex(), idx => RA.toArray(words())[idx]);
 
   const text = flow(
     words,
-    RNEA.reduce('', (b, a) => `${b} ${a}`)
-  );
-
-  const text2 = pipe(
-    words(),
-    RNEA.reduce('', (b, a) => `${b} ${a}`)
+    RA.reduce('', (b, a) => `${b} ${a}`)
   );
 
   return (
     <div class={styles.App}>
       <TextDisplay text={text()} />
+
       <TypingBoard
         targetWord={targetWord()}
         setTargetWordIndex={setTargetWordIndex}

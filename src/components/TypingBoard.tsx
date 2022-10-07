@@ -3,7 +3,7 @@ import * as O from 'fp-ts/Option';
 import { Component, Setter } from 'solid-js';
 
 export const TypingBoard: Component<{
-  targetWord: IO.IO<O.Option<string>>;
+  targetWord: IO.IO<string>;
   setTargetWordIndex: Setter<O.Option<number>>;
 }> = props => {
   console.log({ props });
