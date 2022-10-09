@@ -3,11 +3,16 @@ import { flow, pipe } from 'fp-ts/function';
 import * as IO from 'fp-ts/IO';
 import * as RA from 'fp-ts/ReadonlyArray';
 import * as RNEA from 'fp-ts/ReadonlyNonEmptyArray';
+import * as Semigroup from 'fp-ts/Semigroup';
 import * as S from 'fp-ts/string';
 import { Component, createSignal } from 'solid-js';
 import styles from './App.module.css';
 import { TextDisplay } from './components/TextDisplay';
 import { TypingBoard } from './components/TypingBoard';
+
+const TextSemigroup: Semigroup.Semigroup<string> = {
+  concat: (a, b) => `${a} ${b}`,
+};
 
 const App: Component = () => {
   const [words] = createSignal(
@@ -19,10 +24,7 @@ const App: Component = () => {
   const targetWord = (): IO.IO<string> => () =>
     pipe(targetWordIndex(), idx => RA.toArray(words())[idx]);
 
-  const text = flow(
-    words,
-    RA.reduce('', (b, a) => `${b} ${a}`)
-  );
+  const text = flow(words, Semigroup.concatAll(TextSemigroup)(''));
 
   return (
     <div class={styles.App}>
