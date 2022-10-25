@@ -1,3 +1,5 @@
+This is a typing test application that calculate works per minute, similar to [typetest.io](https://typetest.io/). I'm building this with [fp-ts](https://github.com/gcanti/fp-ts) and [Solid.js](https://www.solidjs.com/)
+
 ## Usage
 
 Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
