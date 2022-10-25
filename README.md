@@ -1,4 +1,4 @@
-This is a typing test application that calculate works per minute, similar to [typetest.io](https://typetest.io/). I'm building this with [fp-ts](https://github.com/gcanti/fp-ts) and [Solid.js](https://www.solidjs.com/)
+This is a typing test application that calculate words per minute, similar to [typetest.io](https://typetest.io/). I'm building this with [fp-ts](https://github.com/gcanti/fp-ts) and [Solid.js](https://www.solidjs.com/)
 
 ## Usage
 
