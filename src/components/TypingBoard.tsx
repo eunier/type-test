@@ -1,13 +1,42 @@
 import * as IO from 'fp-ts/IO';
+import { flow, pipe } from 'fp-ts/lib/function';
 import * as O from 'fp-ts/Option';
-import { Component, Setter } from 'solid-js';
+import { Component, createSignal, JSX, Setter } from 'solid-js';
+
+const pickCurrentTargetValue = flow((e: any) => {});
+
+type InputElementInputEvent = {
+  _tag: 'InputElementInputEvent';
+  value: Parameters<JSX.EventHandler<HTMLInputElement, InputEvent>>[0];
+};
 
 export const TypingBoard: Component<{
   targetWord: IO.IO<string>;
   setTargetWordIndex: Setter<O.Option<number>>;
 }> = props => {
-  console.log({ props });
-  return <div>{JSON.stringify(props)}</div>;
+  const [inputValue, setInputValue] = createSignal('');
+
+  const handleOnInput = (
+    e: Parameters<JSX.EventHandler<HTMLInputElement, InputEvent>>[0]
+  ) => {
+    console.log(e);
+    setInputValue(e.currentTarget.value);
+  };
+
+  const handleOnInput2 = flow(setInputValue);
+
+  return (
+    <>
+      <input
+        type="text"
+        value={inputValue()}
+        onInput={e => handleOnInput(e)}
+      ></input>
+
+      <div>{JSON.stringify(props)}</div>
+      <div>inputValue: {inputValue()}</div>
+    </>
+  );
 };
 
 // export const TypingBoard: Component<{
