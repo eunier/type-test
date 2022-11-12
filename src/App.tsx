@@ -1,4 +1,7 @@
 import { faker } from '@faker-js/faker';
+import styles from 'App.module.css';
+import { TextDisplay } from 'components/TextDisplay';
+import { TypingBoard } from 'components/TypingBoard';
 import { flow, pipe } from 'fp-ts/function';
 import * as IO from 'fp-ts/IO';
 import * as RA from 'fp-ts/ReadonlyArray';
@@ -6,9 +9,6 @@ import * as RNEA from 'fp-ts/ReadonlyNonEmptyArray';
 import * as Semigroup from 'fp-ts/Semigroup';
 import * as S from 'fp-ts/string';
 import { Component, createSignal } from 'solid-js';
-import styles from './App.module.css';
-import { TextDisplay } from './components/TextDisplay';
-import { TypingBoard } from './components/TypingBoard';
 
 const TextSemigroup: Semigroup.Semigroup<string> = {
   concat: (a, b) => `${a} ${b}`,
