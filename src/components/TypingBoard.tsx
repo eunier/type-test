@@ -3,32 +3,6 @@ import { flow, pipe } from 'fp-ts/lib/function';
 import * as O from 'fp-ts/Option';
 import { Component, createSignal, JSX, Setter } from 'solid-js';
 
-const pickCurrentTargetValue = <T, E extends Event>(
-  e: Parameters<JSX.EventHandler<T, E>>
-) => 'a';
-
-const getEvent = <T, E extends Event>(
-  e: Parameters<JSX.EventHandler<T, E>>[0]
-): MyEvent => {
-  switch (e.type) {
-    case 'input':
-      return {
-        _tag: 'InputElementInputEvent',
-        event: e as unknown as InputElementInputEvent['event'],
-      };
-
-    default:
-      return { _tag: 'Event', event: e };
-  }
-};
-
-type InputElementInputEvent = {
-  _tag: 'InputElementInputEvent';
-  event: Parameters<JSX.EventHandler<HTMLInputElement, InputEvent>>[0];
-};
-
-type MyEvent = InputElementInputEvent | { _tag: 'Event'; event: Event };
-
 export const TypingBoard: Component<{
   targetWord: IO.IO<string>;
   setTargetWordIndex: Setter<O.Option<number>>;
@@ -42,14 +16,14 @@ export const TypingBoard: Component<{
     setInputValue(e.currentTarget.value);
   };
 
-  const handleOnInput2 = flow(pickCurrentTargetValue, setInputValue);
+  // const handleOnInput2 = flow(pickCurrentTargetValue, setInputValue);
 
   return (
     <>
       <input
         type="text"
         value={inputValue()}
-        onInput={e => handleOnInput2(e)}
+        // onInput={e => handleOnInput2(e)}
       ></input>
 
       <div>{JSON.stringify(props)}</div>
