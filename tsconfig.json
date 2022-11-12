@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "baseUrl": "src",
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -10,10 +11,6 @@
     "noEmit": true,
     "strict": true,
     "target": "ESNext",
-    "types": ["vite/client"],
-    "baseUrl": "src"
-    // "paths": {
-    //   "src/*": ["./src/*"]
-    // }
+    "types": ["vite/client"]
   }
 }
