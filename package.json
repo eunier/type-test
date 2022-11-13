@@ -18,6 +18,7 @@
   "dependencies": {
     "@faker-js/faker": "^7.3.0",
     "fp-ts": "^2.12.1",
-    "solid-js": "^1.4.2"
+    "solid-js": "^1.4.2",
+    "solid-js-fp-ts": "^1.0.0"
   }
 }
