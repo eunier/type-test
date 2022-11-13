@@ -1,7 +1,7 @@
+import { flow } from 'fp-ts/function';
 import * as IO from 'fp-ts/IO';
-import { flow, pipe } from 'fp-ts/lib/function';
 import * as O from 'fp-ts/Option';
-import { Component, createSignal, JSX, Setter } from 'solid-js';
+import { Component, createSignal, Setter } from 'solid-js';
 import * as H from 'solid-js-fp-ts';
 
 export const TypingBoard: Component<{
@@ -10,23 +10,15 @@ export const TypingBoard: Component<{
 }> = props => {
   const [inputValue, setInputValue] = createSignal('');
 
-  const handleOnInput = (
-    e: Parameters<JSX.EventHandler<HTMLInputElement, InputEvent>>[0]
-  ) => {
-    console.log(e);
-    setInputValue(e.currentTarget.value);
-  };
-
-  // const handleOnInput2 = flow(pickCurrentTargetValue, setInputValue);
+  const handleOnInput = flow(
+    H.pickCurrentTargetValue,
+    O.getOrElse(() => ''),
+    setInputValue
+  );
 
   return (
     <>
-      <input
-        type="text"
-        value={inputValue()}
-        // onInput={e => handleOnInput2(e)}
-        onInput={H.getEvent}
-      ></input>
+      <input type="text" value={inputValue()} onInput={handleOnInput}></input>
 
       <div>{JSON.stringify(props)}</div>
       <div>inputValue: {inputValue()}</div>
