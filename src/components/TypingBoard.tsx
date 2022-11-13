@@ -2,6 +2,7 @@ import * as IO from 'fp-ts/IO';
 import { flow, pipe } from 'fp-ts/lib/function';
 import * as O from 'fp-ts/Option';
 import { Component, createSignal, JSX, Setter } from 'solid-js';
+import * as H from 'solid-js-fp-ts';
 
 export const TypingBoard: Component<{
   targetWord: IO.IO<string>;
@@ -24,6 +25,7 @@ export const TypingBoard: Component<{
         type="text"
         value={inputValue()}
         // onInput={e => handleOnInput2(e)}
+        onInput={H.getEvent}
       ></input>
 
       <div>{JSON.stringify(props)}</div>
