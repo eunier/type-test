@@ -11,15 +11,17 @@ export type TypingBoardProps = {
 
 export const TypingBoard: Component<TypingBoardProps> = props => {
   const [inputValue, setInputValue] = createSignal('');
-  const [isFirstInput, setIsFirstInput] = createSignal(false);
+  const [didUserStart, setDidUserStart] = createSignal(false);
   const [startTime, setStartTime] = createSignal<O.Option<Date>>(O.none);
   const [endTime, setEndTime] = createSignal<O.Option<Date>>(O.none);
+
+  const setDidUserStartOnInput = 
 
   const handleOnInput = flow(
     H.pickCurrentTargetValue,
     O.getOrElse(() => ''),
     setInputValue,
-    () => setIsFirstInput(true)
+    () => setDidUserStart(true)
   );
 
   return (
@@ -28,7 +30,7 @@ export const TypingBoard: Component<TypingBoardProps> = props => {
 
       <div>{JSON.stringify(props)}</div>
       <div>inputValue: {inputValue()}</div>
-      <div>isFirstInput: {isFirstInput() ? 't' : 'f'}</div>
+      <div>isFirstInput: {didUserStart() ? 't' : 'f'}</div>
     </>
   );
 };
