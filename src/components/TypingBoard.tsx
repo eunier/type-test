@@ -4,10 +4,12 @@ import * as O from 'fp-ts/Option';
 import { Component, createSignal, Setter } from 'solid-js';
 import * as H from 'solid-js-fp-ts';
 
-export const TypingBoard: Component<{
+export type TypingBoardProps = {
   targetWord: IO.IO<string>;
   setTargetWordIndex: Setter<O.Option<number>>;
-}> = props => {
+};
+
+export const TypingBoard: Component<TypingBoardProps> = props => {
   const [inputValue, setInputValue] = createSignal('');
 
   const handleOnInput = flow(
