@@ -10,7 +10,6 @@ import * as Semigroup from 'fp-ts/Semigroup';
 import * as S from 'fp-ts/string';
 import { Component, createSignal } from 'solid-js';
 
-
 const TextSemigroup: Semigroup.Semigroup<string> = {
   concat: (a, b) => `${a} ${b}`,
 };
