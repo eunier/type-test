@@ -15,7 +15,9 @@ export const TypingBoard: Component<TypingBoardProps> = props => {
   const [startTime, setStartTime] = createSignal<O.Option<Date>>(O.none);
   const [endTime, setEndTime] = createSignal<O.Option<Date>>(O.none);
 
-  const setDidUserStartOnInput = 
+  const setDidUserStartOnInput = () => {
+    didUserStart();
+  };
 
   const handleOnInput = flow(
     H.pickCurrentTargetValue,
